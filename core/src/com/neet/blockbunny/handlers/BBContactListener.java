@@ -12,8 +12,7 @@ public class BBContactListener implements ContactListener {
 	
 	private int numFootContacts;
 	private Array<Body> bodiesToRemove;
-	private boolean playerDead;
-	
+
 	public BBContactListener() {
 		super();
 		bodiesToRemove = new Array<Body>();
@@ -33,20 +32,13 @@ public class BBContactListener implements ContactListener {
 			numFootContacts++;
 		}
 		
-		if(fa.getUserData() != null && fa.getUserData().equals("crystal")) {
+		if(fa.getUserData() != null && fa.getUserData().equals("maca")) {
 			bodiesToRemove.add(fa.getBody());
 		}
-		if(fb.getUserData() != null && fb.getUserData().equals("crystal")) {
+		if(fb.getUserData() != null && fb.getUserData().equals("maca")) {
 			bodiesToRemove.add(fb.getBody());
 		}
-		
-		if(fa.getUserData() != null && fa.getUserData().equals("spike")) {
-			playerDead = true;
-		}
-		if(fb.getUserData() != null && fb.getUserData().equals("spike")) {
-			playerDead = true;
-		}
-		
+
 	}
 	
 	public void endContact(Contact contact) {
@@ -67,8 +59,7 @@ public class BBContactListener implements ContactListener {
 	
 	public boolean playerCanJump() { return numFootContacts > 0; }
 	public Array<Body> getBodies() { return bodiesToRemove; }
-	public boolean isPlayerDead() { return playerDead; }
-	
+
 	public void preSolve(Contact c, Manifold m) {}
 	public void postSolve(Contact c, ContactImpulse ci) {}
 	

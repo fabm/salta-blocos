@@ -1,10 +1,7 @@
 package com.neet.blockbunny.handlers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-import org.omg.CORBA.TRANSACTION_UNAVAILABLE;
 
 public class BBInputProcessor extends InputAdapter {
 
@@ -36,18 +33,17 @@ public class BBInputProcessor extends InputAdapter {
   }
 
   public boolean keyDown(int k) {
-    Gdx.app.debug("currentKey:","key:"+k);
 
-    if(k==Keys.LEFT){
+    if (k == Keys.LEFT) {
       BBInput.setKey(BBInput.LEFT_BUTTON, true);
     }
-    if(k==Keys.DOWN){
+    if (k == Keys.DOWN) {
       BBInput.setKey(BBInput.DOWN_BUTTON, true);
     }
-    if(k==Keys.RIGHT){
+    if (k == Keys.RIGHT) {
       BBInput.setKey(BBInput.RIGHT_BUTTON, true);
     }
-    if(k==Keys.UP){
+    if (k == Keys.UP) {
       BBInput.setKey(BBInput.UP_BUTTON, true);
     }
     if (k == Keys.Z || k == Keys.UP) {
@@ -63,17 +59,17 @@ public class BBInputProcessor extends InputAdapter {
   }
 
   public boolean keyUp(int k) {
-    if(k==Keys.LEFT){
-        BBInput.setKey(BBInput.LEFT_BUTTON, false);
+    if (k == Keys.LEFT) {
+      BBInput.setKey(BBInput.LEFT_BUTTON, false);
     }
-    if(k==Keys.DOWN){
-        BBInput.setKey(BBInput.DOWN_BUTTON, false);
+    if (k == Keys.DOWN) {
+      BBInput.setKey(BBInput.DOWN_BUTTON, false);
     }
-    if(k==Keys.RIGHT){
-        BBInput.setKey(BBInput.RIGHT_BUTTON, false);
+    if (k == Keys.RIGHT) {
+      BBInput.setKey(BBInput.RIGHT_BUTTON, false);
     }
-    if(k==Keys.UP){
-        BBInput.setKey(BBInput.UP_BUTTON, false);
+    if (k == Keys.UP) {
+      BBInput.setKey(BBInput.UP_BUTTON, false);
     }
     if (k == Keys.Z || k == Keys.UP) {
       BBInput.setKey(BBInput.BUTTON1, false);

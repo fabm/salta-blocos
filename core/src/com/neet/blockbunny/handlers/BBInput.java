@@ -31,24 +31,12 @@ public class BBInput {
     }
   }
 
-  public static boolean isDown() {
-    return down;
-  }
-
   public static boolean isPressed() {
     return down && !pdown;
   }
 
-  public static boolean isReleased() {
-    return !down && pdown;
-  }
-
   public static void setKey(int i, boolean b) {
     keys[i] = b;
-  }
-
-  public static boolean isDown(int i) {
-    return keys[i];
   }
 
   public static boolean isPressed(int i) {

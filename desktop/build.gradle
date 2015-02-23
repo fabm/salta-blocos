@@ -1,10 +1,9 @@
 apply plugin: "java"
 
-sourceCompatibility = 1.6
-sourceSets.main.java.srcDirs = [ "src/" ]
 
-project.ext.mainClassName = "pt.ipg.mcm.jumper.blocks.desktop.DesktopLauncher"
+project.ext.mainClassName = "pt.ipg.mcm.salta.blocos.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets");
+
 
 task run(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName
@@ -14,15 +13,29 @@ task run(dependsOn: classes, type: JavaExec) {
     ignoreExitValue = true
 }
 
+test {
+    workingDir = project.assetsDir
+}
+
 task dist(type: Jar) {
     from files(sourceSets.main.output.classesDir)
     from files(sourceSets.main.output.resourcesDir)
-    from {configurations.compile.collect {zipTree(it)}}
+    from { configurations.compile.collect { zipTree(it) } }
     from files(project.assetsDir);
- 
+
     manifest {
         attributes 'Main-Class': project.mainClassName
     }
+}
+
+task printTestPaths << {
+    SourceDirectorySet sds = sourceSets.test.java
+    println sds.srcDirs
+}
+
+task printJavaPaths << {
+    SourceDirectorySet sds = sourceSets.main.java
+    println sds.srcDirs
 }
 
 dist.dependsOn classes
@@ -35,12 +48,12 @@ eclipse {
 }
 
 task afterEclipseImport(description: "Post processing after project generation", group: "IDE") {
-  doLast {
-    def classpath = new XmlParser().parse(file(".classpath"))
-    new Node(classpath, "classpathentry", [ kind: 'src', path: 'assets' ]);
-    def writer = new FileWriter(file(".classpath"))
-    def printer = new XmlNodePrinter(new PrintWriter(writer))
-    printer.setPreserveWhitespace(true)
-    printer.print(classpath)
-  }
+    doLast {
+        def classpath = new XmlParser().parse(file(".classpath"))
+        new Node(classpath, "classpathentry", [kind: 'src', path: 'assets']);
+        def writer = new FileWriter(file(".classpath"))
+        def printer = new XmlNodePrinter(new PrintWriter(writer))
+        printer.setPreserveWhitespace(true)
+        printer.print(classpath)
+    }
 }

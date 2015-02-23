@@ -7,9 +7,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.neet.blockbunny.handlers.Animation;
 import com.neet.blockbunny.handlers.B2DVars;
 
-/**
- * Attaches animated sprites to box2d bodies
- */
 public class B2DSprite {
 	
 	protected Body body;
@@ -20,16 +17,6 @@ public class B2DSprite {
 	public B2DSprite(Body body) {
 		this.body = body;
 		animation = new Animation();
-	}
-	
-	public void setAnimation(TextureRegion reg, float delay) {
-		setAnimation(new TextureRegion[] { reg }, delay);
-	}
-	
-	public void setAnimation(TextureRegion[] reg, float delay) {
-		animation.setFrames(reg, delay);
-		width = reg[0].getRegionWidth();
-		height = reg[0].getRegionHeight();
 	}
 	
 	public void update(float dt) {
@@ -44,7 +31,4 @@ public class B2DSprite {
 	
 	public Body getBody() { return body; }
 	public Vector2 getPosition() { return body.getPosition(); }
-	public float getWidth() { return width; }
-	public float getHeight() { return height; }
-	
 }

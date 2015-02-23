@@ -1,19 +1,16 @@
 package com.neet.blockbunny.handlers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-/**
- * Handles animated sprites using an array of TextureRegions.
- */
 public class Animation {
 	
 	private TextureRegion[] frames;
 	private float time;
 	private float delay;
 	private int currentFrame;
-	
-	private int timesPlayed;
-	
+  private String nome;
+
 	public Animation() {}
 
 	public Animation(TextureRegion[] frames, float delay) {
@@ -21,18 +18,20 @@ public class Animation {
 		this.delay = delay;
 		time = 0;
 		currentFrame = 0;
-	}
-	
-	public void setDelay(float f) { delay = f; }
-	public void setCurrentFrame(int i) { if(i < frames.length) currentFrame = i; }
-	public void setFrames(TextureRegion[] frames) {
-		setFrames(frames, 1 / 48f);
-	}
-	public void setFrames(TextureRegion[] frames, float delay) {
+  }
+
+  public String getNome() {
+    return nome;
+  }
+
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
+
+  public void setFrames(TextureRegion[] frames, float delay) {
 		this.frames = frames;
 		time = 0;
 		currentFrame = 0;
-		timesPlayed = 0;
 		this.delay = delay;
 	}
 	
@@ -47,14 +46,14 @@ public class Animation {
 	private void step() {
 		time -= delay;
 		currentFrame++;
+    Gdx.app.log("frame","nome: "+getNome()+"frame:"+currentFrame);
 		if(currentFrame == frames.length) {
 			currentFrame = 0;
-			timesPlayed++;
 		}
 	}
 	
-	public TextureRegion getFrame() { return frames[currentFrame]; }
-	public int getTimesPlayed() { return timesPlayed; }
-	public boolean hasPlayedOnce() { return timesPlayed > 0; }
-	
+	public TextureRegion getFrame() {
+    return frames[currentFrame];
+  }
+
 }

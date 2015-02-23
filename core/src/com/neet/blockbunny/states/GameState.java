@@ -2,7 +2,8 @@ package com.neet.blockbunny.states;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.neet.blockbunny.handlers.BoundedCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.neet.blockbunny.handlers.CameraMov;
 import com.neet.blockbunny.handlers.GameStateManager;
 import com.neet.blockbunny.main.Game;
 
@@ -12,15 +13,17 @@ public abstract class GameState {
 	protected Game game;
 	
 	protected SpriteBatch sb;
-	protected BoundedCamera cam;
-	protected OrthographicCamera hudCam;
+	protected ShapeRenderer sr;
+	protected CameraMov camMovel;
+	protected OrthographicCamera camFixa;
 	
 	protected GameState(GameStateManager gsm) {
 		this.gsm = gsm;
 		game = gsm.game();
 		sb = game.getSpriteBatch();
-		cam = game.getCamera();
-		hudCam = game.getHUDCamera();
+		sr = game.getShapeRenderer();
+		camMovel = game.getCamera();
+		camFixa = game.getCamaraFixa();
 	}
 	
 	public abstract void handleInput();

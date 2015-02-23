@@ -1,9 +1,12 @@
 package com.neet.blockbunny.handlers;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Logger;
 import com.neet.blockbunny.main.Game;
@@ -41,7 +44,7 @@ public class GameButton {
     height = reg.getRegionHeight();
     vec = new Vector3();
 
-    Texture tex = Game.res.getTexture("hud");
+    Texture tex = Game.res.getTexture("quadro");
     font = new TextureRegion[11];
     for (int i = 0; i < 6; i++) {
       font[i] = new TextureRegion(tex, 32 + i * 9, 16, 9, 9);
@@ -60,7 +63,7 @@ public class GameButton {
     text = s;
   }
 
-  public void update(float dt) {
+  public void update() {
 
     vec.set(BBInput.x, BBInput.y, 0);
     cam.unproject(vec);
@@ -76,34 +79,33 @@ public class GameButton {
   }
 
   public void render(SpriteBatch sb) {
-
+    BitmapFont bmf = new BitmapFont();
+    bmf.setColor(Color.BLUE);
     sb.begin();
 
     sb.draw(reg, x - width / 2, y - height / 2);
 
     if (text != null) {
-      drawString(sb, text, x, y);
+      bmf.draw(sb,text,x-4,y+6);
     }
 
     sb.end();
 
   }
 
-  private void drawString(SpriteBatch sb, String s, float x, float y) {
-    int len = s.length();
-    float xo = len * font[0].getRegionWidth() / 2;
-    float yo = font[0].getRegionHeight() / 2;
-    for (int i = 0; i < len; i++) {
-      char c = s.charAt(i);
-      if (c == '/') {
-        c = 10;
-      } else if (c >= '0' && c <= '9') {
-        c -= '0';
-      } else {
-        continue;
-      }
-      sb.draw(font[c], x + i * 9 - xo, y - yo);
-    }
-  }
 
+  public void render(ShapeRenderer sr,SpriteBatch sb) {
+
+    if (text != null) {
+      render(sb);
+    }
+
+    sr.begin(ShapeRenderer.ShapeType.Line);
+
+    sr.circle(x - width / 2+16, y - height / 2+16, 16);
+
+    sr.end();
+
+
+  }
 }

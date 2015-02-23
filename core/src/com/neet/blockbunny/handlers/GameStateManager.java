@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import com.neet.blockbunny.main.Game;
 import com.neet.blockbunny.states.GameState;
-import com.neet.blockbunny.states.LevelSelect;
+import com.neet.blockbunny.states.SelecaoNivel;
 import com.neet.blockbunny.states.Menu;
 import com.neet.blockbunny.states.Play;
 import com.neet.blockbunny.states.State;
@@ -34,7 +34,7 @@ public class GameStateManager {
 	private GameState getState(State state) {
 		if(state == State.MENU) return new Menu(this);
 		if(state == State.PLAY) return new Play(this);
-		if(state == State.LEVEL_SELECT) return new LevelSelect(this);
+		if(state == State.LEVEL_SELECT) return new SelecaoNivel(this);
 		return null;
 	}
 	

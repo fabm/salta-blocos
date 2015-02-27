@@ -1,66 +1,73 @@
 package com.neet.blockbunny.handlers;
 
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.utils.Array;
+import com.neet.blockbunny.entities.ApplesContainer;
 
-public class BBContactListener implements ContactListener {
-	
-	private int numFootContacts;
-	private Array<Body> bodiesToRemove;
+public class BBContactListener implements ContactListener, FloorContact {
 
-	public BBContactListener() {
-		super();
-		bodiesToRemove = new Array<Body>();
-	}
-	
-	public void beginContact(Contact contact) {
-		
-		Fixture fa = contact.getFixtureA();
-		Fixture fb = contact.getFixtureB();
-		
-		if(fa == null || fb == null) return;
-		
-		if(fa.getUserData() != null && fa.getUserData().equals("foot")) {
-			numFootContacts++;
-		}
-		if(fb.getUserData() != null && fb.getUserData().equals("foot")) {
-			numFootContacts++;
-		}
-		
-		if(fa.getUserData() != null && fa.getUserData().equals("maca")) {
-			bodiesToRemove.add(fa.getBody());
-		}
-		if(fb.getUserData() != null && fb.getUserData().equals("maca")) {
-			bodiesToRemove.add(fb.getBody());
-		}
+  private int numFootContacts;
+  private ApplesContainer applesContainer;
 
-	}
-	
-	public void endContact(Contact contact) {
-		
-		Fixture fa = contact.getFixtureA();
-		Fixture fb = contact.getFixtureB();
-		
-		if(fa == null || fb == null) return;
-		
-		if(fa.getUserData() != null && fa.getUserData().equals("foot")) {
-			numFootContacts--;
-		}
-		if(fb.getUserData() != null && fb.getUserData().equals("foot")) {
-			numFootContacts--;
-		}
-		
-	}
-	
-	public boolean playerCanJump() { return numFootContacts > 0; }
-	public Array<Body> getBodies() { return bodiesToRemove; }
+  public BBContactListener(ApplesContainer applesContainer) {
+    super();
+    this.applesContainer = applesContainer;
+  }
 
-	public void preSolve(Contact c, Manifold m) {}
-	public void postSolve(Contact c, ContactImpulse ci) {}
-	
+  public void beginContact(Contact contact) {
+
+    if (contact == null) {
+      return;
+    }
+
+    Fixture fa = contact.getFixtureA();
+    Fixture fb = contact.getFixtureB();
+
+
+    if (fa == null || fb == null) {
+      return;
+    }
+
+    if (Collision.APPLE.isInCollision(fa)) {
+      applesContainer.add(fa.getBody());
+    }
+    if (Collision.APPLE.isInCollision(fb)) {
+      applesContainer.add(fb.getBody());
+    }
+    if (Collision.FOOT.isInCollision(fa, fb)) {
+      numFootContacts++;
+    }
+  }
+
+  public void endContact(Contact contact) {
+
+    Fixture fa = contact.getFixtureA();
+    Fixture fb = contact.getFixtureB();
+
+    if (fa == null || fb == null) {
+      return;
+    }
+
+    if (Collision.FOOT.isInCollision(fa, fb)) {
+      Gdx.app.log("isInFloor", "decrement");
+      numFootContacts--;
+    }
+
+  }
+
+  public void preSolve(Contact c, Manifold m) {
+  }
+
+  public void postSolve(Contact c, ContactImpulse ci) {
+  }
+
+  @Override
+  public boolean isInFloor() {
+    Gdx.app.log("isInFloor", numFootContacts + "");
+    return numFootContacts > 0;
+  }
 }

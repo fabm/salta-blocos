@@ -9,6 +9,6 @@ public interface B2DVars {
 	public static final short BIT_RED_BLOCK = 1<<2;
 	public static final short BIT_GREEN_BLOCK = 1<<3;
 	public static final short BIT_BLUE_BLOCK = 1<<4;
-	public static final short BIT_MACA = 1<<5;
+	public static final short BIT_APPLE = 1<<5;
 
 }

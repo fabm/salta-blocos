@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.neet.blockbunny.handlers.BBInput;
 import com.neet.blockbunny.handlers.BBInputProcessor;
-import com.neet.blockbunny.handlers.CameraMov;
+import com.neet.blockbunny.handlers.DynamicCam;
 import com.neet.blockbunny.handlers.Content;
 import com.neet.blockbunny.handlers.GameStateManager;
 
@@ -22,8 +22,8 @@ public class Game implements ApplicationListener {
 
   private SpriteBatch sb;
   private ShapeRenderer sr;
-  private CameraMov camPlayer;
-  private OrthographicCamera camQuadro;
+  private DynamicCam dynCam;
+  private OrthographicCamera staticCam;
 
   private GameStateManager gsm;
 
@@ -55,10 +55,10 @@ public class Game implements ApplicationListener {
     res.getMusic(MUSICA).setVolume(0.5f);
     res.getMusic(MUSICA).play();
 
-    camPlayer = new CameraMov();
-    camPlayer.setToOrtho(false, V_WIDTH, V_HEIGHT);
-    camQuadro = new OrthographicCamera();
-    camQuadro.setToOrtho(false, V_WIDTH, V_HEIGHT);
+    dynCam = new DynamicCam();
+    dynCam.setToOrtho(false, V_WIDTH, V_HEIGHT);
+    staticCam = new OrthographicCamera();
+    staticCam.setToOrtho(false, V_WIDTH, V_HEIGHT);
 
     sb = InstanceProvider.get().getSpriteBatchProvider().get();
     sr = InstanceProvider.get().getShapeRendererProvider().get();
@@ -98,12 +98,12 @@ public class Game implements ApplicationListener {
     return sr;
   }
 
-  public CameraMov getCamera() {
-    return camPlayer;
+  public DynamicCam getDynCam() {
+    return dynCam;
   }
 
-  public OrthographicCamera getCamaraFixa() {
-    return camQuadro;
+  public OrthographicCamera getStaticCam() {
+    return staticCam;
   }
 
 }

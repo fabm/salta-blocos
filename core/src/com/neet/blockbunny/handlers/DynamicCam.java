@@ -2,16 +2,16 @@ package com.neet.blockbunny.handlers;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-public class CameraMov extends OrthographicCamera {
+public class DynamicCam extends OrthographicCamera {
 	
 	private float xmin;
 	private float xmax;
 
-	public CameraMov() {
+	public DynamicCam() {
 		this(0, 0);
 	}
 	
-	public CameraMov(float xmin, float xmax) {
+	public DynamicCam(float xmin, float xmax) {
 		super();
 		setBounds(xmin, xmax);
 	}

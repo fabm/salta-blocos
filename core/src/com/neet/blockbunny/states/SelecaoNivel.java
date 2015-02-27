@@ -26,12 +26,12 @@ public class SelecaoNivel extends GameState {
     buttons = new GameButton[1][5];
     for (int row = 0; row < buttons.length; row++) {
       for (int col = 0; col < buttons[0].length; col++) {
-        buttons[row][col] = new GameButton(textureRegion, 80 + col * 40, 200 - row * 40, camMovel);
+        buttons[row][col] = new GameButton(textureRegion, 80 + col * 40, 200 - row * 40, dynCam);
         buttons[row][col].setText(row * buttons[0].length + col + 1 + "");
       }
     }
 
-    camMovel.setToOrtho(false, Game.V_WIDTH, Game.V_HEIGHT);
+    dynCam.setToOrtho(false, Game.V_WIDTH, Game.V_HEIGHT);
 
   }
 
@@ -49,7 +49,7 @@ public class SelecaoNivel extends GameState {
       currentLevel.y++;
     }
     if(BBInput.isPressed(BBInput.ENTER_MENU_BUTTON)){
-      Play.nivel = currentLevel.y*5+currentLevel.x+1;
+      Play.level = currentLevel.y*5+currentLevel.x+1;
        gsm.setState(State.PLAY);
     }
     if (currentLevel.x < 0) {
@@ -73,7 +73,7 @@ public class SelecaoNivel extends GameState {
       for (int col = 0; col < buttons[0].length; col++) {
         buttons[row][col].update();
         if (buttons[row][col].isClicked()) {
-          Play.nivel = row * buttons[0].length + col + 1;
+          Play.level = row * buttons[0].length + col + 1;
           Game.res.getSound("select").play();
           gsm.setState(State.PLAY);
         }
@@ -84,13 +84,13 @@ public class SelecaoNivel extends GameState {
 
   public void render() {
 
-    sb.setProjectionMatrix(camMovel.combined);
+    sb.setProjectionMatrix(dynCam.combined);
 
     sb.begin();
     sb.draw(reg, 0, 0);
     sb.end();
 
-    sr.setProjectionMatrix(camMovel.combined);
+    sr.setProjectionMatrix(dynCam.combined);
     sr.setColor(Color.BLACK);
 
 

@@ -19,7 +19,7 @@ public class TestJogo {
     Assert.assertEquals(4, B2DVars.BIT_RED_BLOCK);
     Assert.assertEquals(8, B2DVars.BIT_GREEN_BLOCK);
     Assert.assertEquals(16, B2DVars.BIT_BLUE_BLOCK);
-    Assert.assertEquals(32, B2DVars.BIT_MACA);
+    Assert.assertEquals(32, B2DVars.BIT_APPLE);
   }
 
   @Test

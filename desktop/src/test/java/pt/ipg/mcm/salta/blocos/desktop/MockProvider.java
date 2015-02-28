@@ -1,6 +1,6 @@
 package pt.ipg.mcm.salta.blocos.desktop;
 
-import com.neet.blockbunny.main.Provider;
+import pt.ipg.mcm.salta.blocos.main.Provider;
 import org.mockito.Mockito;
 
 public class MockProvider<T> implements Provider<T>{

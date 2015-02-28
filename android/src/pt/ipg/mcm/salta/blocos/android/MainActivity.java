@@ -1,4 +1,4 @@
-package com.mygdx.game.android;
+package pt.ipg.mcm.salta.blocos.android;
 
 import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
